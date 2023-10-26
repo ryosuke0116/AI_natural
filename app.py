@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-apikey = "<DZZvKTsoYCMfTQSskbOY6VtHw4QA07zW>"
+apikey = "DZZvKTsoYCMfTQSskbOY6VtHw4QA07zW"
 
 chat_logs = []
 
@@ -25,13 +25,13 @@ def send_pya3rt(endpoint, apikey, text, callback):
 
 
 def generate_response():
-    ans_json = send_pya3rt('https://api.a3rt.recruit.co.jp/talk/v1/smalltalk',
-                       apikey, message, None)
-    ans = ans_json['results'][0]['reply']
+    ans_json = send_pya3rt('https://api.a3rt.recruit.co.jp/talk/v1/smalltalk', apikey, message, None)
+    ans = ans_json.get('results', [{}])[0].get('reply', 'No reply found')
     chat_logs.append('you: ' + message)
     chat_logs.append('AI: ' + ans)
     for chat_log in chat_logs:
         st.write(chat_log)
+
 
 
 if st.button("送信"):
